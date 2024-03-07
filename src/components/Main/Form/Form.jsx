@@ -18,7 +18,8 @@ const Form = () => {
     const {addTransaction} = useContext(ExpenseTrackerContext);
     const [formData,setFormData]= useState(initialState);
      
-    const createTransaction = () => {
+    const createTransaction = (e) => {
+      e.preventDefault();
       if (Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) {    setFormData(initialState); return;  }
     const transaction ={...formData, amount: Number(formData.amount)};
     console.log(transaction);

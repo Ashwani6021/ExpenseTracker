@@ -13,17 +13,19 @@ export const Provider = ({ children }) => {
     try {
       let data;
       try {
-        await axios.get(`https://localhost:8000`).then((res) => {
-          data = res.data;
-          console.log(data);
-        });
+        await axios
+          .get(`https://expence-tracker-server-7yjt.onrender.com/api/trans`)
+          .then((res) => {
+            data = res.data;
+            console.log(data);
+            dispatch({
+              type: "GET_TRANSACTIONS",
+              payload: data.data,
+            });
+          });
       } catch (error) {
         console.error(error);
       }
-      dispatch({
-        type: "GET_TRANSACTIONS",
-        payload: data.data,
-      });
     } catch (error) {
       console.log(error);
     }
@@ -50,10 +52,10 @@ export const Provider = ({ children }) => {
   const addTransaction = async (transaction) => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/trans/`,
+        `https://expence-tracker-server-7yjt.onrender.com/api/trans/`,
         transaction
       );
-      
+
       dispatch({ type: "ADD_TRANSACTION", payload: res.data.data });
     } catch (error) {
       console.log(error);
@@ -70,6 +72,7 @@ export const Provider = ({ children }) => {
     <ExpenseTrackerContext.Provider
       value={{
         transactions,
+        getTransaction,
         deleteTransaction,
         addTransaction,
         balance,

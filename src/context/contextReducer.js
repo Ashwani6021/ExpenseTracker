@@ -4,6 +4,7 @@ const contextReducer = (state, action) => {
     case "GET_TRANSACTIONS": {
       // console.log();
       transactions = action.payload;
+      localStorage.setItem("transactions", JSON.stringify(transactions));
       return transactions;
     }
 
@@ -19,7 +20,7 @@ const contextReducer = (state, action) => {
     case "ADD_TRANSACTION":
       transactions = [action.payload, ...state];
 
-      // localStorage.setItem("transactions", JSON.stringify(transactions));
+      localStorage.setItem("transactions", JSON.stringify(transactions));
 
       return transactions;
     default:
